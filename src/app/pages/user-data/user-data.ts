@@ -1,103 +1,114 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Select } from 'primeng/select';
+import { InputText } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputGroupAddon } from 'primeng/inputgroupaddon';
+import { ButtonModule } from 'primeng/button';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'app-user-data',
-    template: `
-        <div class="user-data-container">
-            <h2>Enter Your Details</h2>
-            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input id="firstName" formControlName="firstName" type="text" placeholder="Enter your first name" />
-                    <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched" class="error">
-                        First name is required.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input id="lastName" formControlName="lastName" type="text" placeholder="Enter your last name" />
-                    <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched" class="error">
-                        Last name is required.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" formControlName="email" type="email" placeholder="Enter your email" />
-                    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="error">
-                        Please enter a valid email.
-                    </div>
-                </div>
-                <button type="submit" [disabled]="userForm.invalid">Submit</button>
-            </form>
-        </div>
-    `,
     standalone: true,
-    imports: [
-        ReactiveFormsModule
-    ],
-    styles: [`
-        .user-data-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .error {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-    `]
+    imports: [Select, InputText, TextareaModule, FileUploadModule, InputGroupAddon, ButtonModule, InputGroupModule, RippleModule],
+    template: `<div class="card">
+        <span class="text-surface-900 dark:text-surface-0 text-xl font-bold mb-6 block">Создание анкеты</span>
+        <div class="grid grid-cols-12 gap-4">
+            <div class="col-span-12 lg:col-span-2">
+                <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4">Данные профиля</div>
+                <p class="m-0 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4">Заполние все поля.</p>
+            </div>
+            <div class="col-span-12 lg:col-span-10">
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="mb-6 col-span-12">
+                        <label for="nickname" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Ф.И.О </label>
+                        <input id="nickname" type="text" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 flex flex-col items-start">
+                        <label for="avatar" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">Аватар</label>
+                        <p-fileupload mode="basic" name="avatar" url="./upload.php" accept="image/*" [maxFileSize]="1000000" styleClass="p-button-outlined p-button-plain" chooseLabel="Загрузить фото"></p-fileupload>
+                    </div>
+                    <div class="mb-6 col-span-12">
+                        <label for="bio" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Наименование компании </label>
+                        <input pTextarea id="bio" type="text" rows="5" [autoResize]="true" fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label for="email" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Email </label>
+                        <input id="email" type="text" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label for="country" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Город </label>
+                        <p-select inputId="country" [options]="countries" optionLabel="name" fluid [filter]="true" filterBy="name" [showClear]="true" placeholder="Выберете город">
+                            <ng-template let-country #item>
+                                <div class="flex items-center">
+                                    <img src="https://primefaces.org/cdn/v2/images/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + country.code.toLowerCase()" style="width:18px" />
+                                    <div>{{ country.name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-select>
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label for="city" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> City </label>
+                        <input id="city" type="text" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label for="state" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> State </label>
+                        <input id="state" type="text" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12">
+                        <label for="website" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Website </label>
+                        <p-inputgroup>
+                            <p-inputgroup-addon>
+                                <span>www</span>
+                            </p-inputgroup-addon>
+                            <input id="website" type="text" pInputText fluid />
+                        </p-inputgroup>
+                    </div>
+                    <div class="flex" style="width: 400%">
+                        <div class="col-span-12 mx-5">
+                            <button pButton (click)="onSubmit()" pRipple label="Сохранить" class="w-auto mt-3"></button>
+                        </div>
+                        <div class="col-span-12" style="width: 90%">
+                            <button pButton (click)="onSubmit()" pRipple label="Вернуться на страницу авторизации" class="w-auto mt-3"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> `
 })
 export class UserData {
-    userForm: FormGroup;
-
-    constructor(private fb: FormBuilder, private router: Router) {
-        this.userForm = this.fb.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]]
+    countries: any[] = [];
+    loginForm: FormGroup;
+    constructor(private fb: FormBuilder, private router: Router,) {
+        this.loginForm = this.fb.group({
+            email: [''],
+            password: [''],
+            remember: [false]
         });
     }
 
+
+    ngOnInit() {
+        this.countries = [
+            { name: 'Australia', code: 'AU' },
+            { name: 'Brazil', code: 'BR' },
+            { name: 'China', code: 'CN' },
+            { name: 'Egypt', code: 'EG' },
+            { name: 'France', code: 'FR' },
+            { name: 'Germany', code: 'DE' },
+            { name: 'India', code: 'IN' },
+            { name: 'Japan', code: 'JP' },
+            { name: 'Spain', code: 'ES' },
+            { name: 'United States', code: 'US' }
+        ];
+    }
     onSubmit() {
-        if (this.userForm.valid) {
-            console.log('User Data:', this.userForm.value);
-            // Navigate to dashboard or another page after submission
+        if (this.loginForm.valid) {
+            console.log('User Data:', this.loginForm.value);
             this.router.navigate(['/dashboard']);
         }
     }
