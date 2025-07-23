@@ -72,7 +72,7 @@ import { RippleModule } from 'primeng/ripple';
                             <button pButton (click)="onSubmit()" pRipple label="Сохранить" class="w-auto mt-3"></button>
                         </div>
                         <div class="col-span-12" style="width: 90%">
-                            <button pButton (click)="onSubmit()" pRipple label="Вернуться на страницу авторизации" class="w-auto mt-3"></button>
+                            <button pButton (click)="backToLogin()" pRipple label="Вернуться на страницу авторизации" class="w-auto mt-3"></button>
                         </div>
                     </div>
                 </div>
@@ -108,8 +108,10 @@ export class UserData {
     }
     onSubmit() {
         if (this.loginForm.valid) {
-            console.log('User Data:', this.loginForm.value);
             this.router.navigate(['/dashboard']);
         }
+    }
+    backToLogin() {
+        this.router.navigate(['/auth/login'])
     }
 }
