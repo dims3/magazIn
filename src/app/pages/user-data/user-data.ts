@@ -51,22 +51,22 @@ import { RippleModule } from 'primeng/ripple';
                         </p-select>
                     </div>
                     <div class="mb-6 col-span-12 md:col-span-6">
-                        <label for="city" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> City </label>
+                        <label for="city" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> БИН </label>
                         <input id="city" type="text" pInputText fluid />
                     </div>
                     <div class="mb-6 col-span-12 md:col-span-6">
-                        <label for="state" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> State </label>
-                        <input id="state" type="text" pInputText fluid />
+<!--                        <label for="state" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> ИИН </label>-->
+<!--                        <input id="state" type="text" pInputText fluid />-->
                     </div>
-                    <div class="mb-6 col-span-12">
-                        <label for="website" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Website </label>
-                        <p-inputgroup>
-                            <p-inputgroup-addon>
-                                <span>www</span>
-                            </p-inputgroup-addon>
-                            <input id="website" type="text" pInputText fluid />
-                        </p-inputgroup>
-                    </div>
+<!--                    <div class="mb-6 col-span-12">-->
+<!--                        <label for="website" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Website </label>-->
+<!--                        <p-inputgroup>-->
+<!--                            <p-inputgroup-addon>-->
+<!--                                <span>www</span>-->
+<!--                            </p-inputgroup-addon>-->
+<!--                            <input id="website" type="text" pInputText fluid />-->
+<!--                        </p-inputgroup>-->
+<!--                    </div>-->
                     <div class="flex" style="width: 400%">
                         <div class="col-span-12 mx-5">
                             <button pButton (click)="onSubmit()" pRipple label="Сохранить" class="w-auto mt-3"></button>
