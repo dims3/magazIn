@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 
 export default [
     {
-        path: 'blog',
-        loadChildren: () => import('./blog/blog.routes'),
-        data: { breadcrumb: 'Blog' }
+        path: 'my-profile',
+        loadChildren: () => import('../pages/usermanagement/user-data'),
+        data: { breadcrumb: 'Мой профиль' }
     },
     {
         path: 'chat',
