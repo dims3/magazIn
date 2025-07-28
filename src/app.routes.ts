@@ -3,6 +3,7 @@ import { AppLayout } from '@/layout/components/app.layout';
 import { Notfound } from '@/pages/notfound/notfound';
 import { LandingLayout } from '@/layout/components/app.landinglayout';
 import { AuthLayout } from '@/layout/components/app.authlayout';
+import { MyOrders } from '@/pages/my-orders/my-orders';
 
 export const appRoutes: Routes = [
     {
@@ -83,6 +84,11 @@ export const appRoutes: Routes = [
             {
                 path: 'user-create',
                 loadComponent: () => import('@/pages/user-create/user-create').then((c) => c.UserCreate),
+                data: { breadcrumb: 'User Data' }
+            },
+            {
+                path: 'my-orders',
+                loadComponent: () => import('@/pages/my-orders/my-orders').then((c) => c.MyOrders),
                 data: { breadcrumb: 'User Data' }
             },
             {

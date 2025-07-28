@@ -13,7 +13,7 @@ import {CommonModule} from "@angular/common";
         <div class="sidebar-header">
             <a class="logo" [routerLink]="['/']">
                 <img class="logo-image" [src]="menuTheme() === 'light' ? '/layout/images/logo-dark.svg' : '/layout/images/logo-white.svg'" alt="diamond-layout" />
-                <span class="app-name title-h7">DIAMOND</span>
+                <span class="app-name title-h7">Мебельщик</span>
             </a>
             <button class="layout-sidebar-anchor z-2" type="button" (click)="anchor()"></button>
         </div>

@@ -17,26 +17,47 @@ import { AppMenuitem } from './app.menuitem';
 export class AppMenu {
     model: any[] = [
         {
-            label: 'Dashboards',
-            icon: 'pi pi-home',
+            label: 'Главная',
+            icon: 'pi pi-fw pi-home',
+            routerLink: ['/']
+        },
+        {
+            label: 'Мой профиль',
+            icon: 'pi pi-user',
             items: [
                 {
-                    label: 'E-Commerce',
-                    icon: 'pi pi-fw pi-warehouse',
-                    routerLink: ['/']
+                    label: 'Мой профиль',
+                    icon: 'pi pi-fw pi-user',
+                    routerLink: ['/user-data']
                 },
                 {
-                    label: 'Banking',
-                    icon: 'pi pi-fw pi-building-columns',
-                    routerLink: ['/dashboard-banking']
+                    label: 'Мои заказы',
+                    icon: 'pi pi-fw pi-box',
+                    routerLink: ['/my-orders']
                 },
-                {
-                    label: 'Marketing',
-                    icon: 'pi pi-fw pi-gauge',
-                    routerLink: ['/dashboard-marketing']
-                }
             ]
         },
+        // {
+        //     label: 'Dashboards',
+        //     icon: 'pi pi-home',
+        //     items: [
+        //         {
+        //             label: 'E-Commerce',
+        //             icon: 'pi pi-fw pi-warehouse',
+        //             routerLink: ['/']
+        //         },
+        //         {
+        //             label: 'Banking',
+        //             icon: 'pi pi-fw pi-building-columns',
+        //             routerLink: ['/dashboard-banking']
+        //         },
+        //         {
+        //             label: 'Marketing',
+        //             icon: 'pi pi-fw pi-gauge',
+        //             routerLink: ['/dashboard-marketing']
+        //         }
+        //     ]
+        // },
         { separator: true },
         {
             label: 'Apps',

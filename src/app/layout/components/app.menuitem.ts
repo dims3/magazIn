@@ -67,13 +67,15 @@ import { LayoutService } from '@/layout/service/layout.service';
                 <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
             </a>
 
-            <ul #submenu *ngIf="item.items && item.visible !== false" [@children]="submenuAnimation" (@children.done)="onSubmenuAnimated($event)">
+            <ul #submenu *ngIf="item.items && item.visible !== false" [@children]="submenuAnimation"
+                (@children.done)="onSubmenuAnimated($event)">
                 <ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
                     <li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child['badgeClass']"></li>
                 </ng-template>
             </ul>
         </ng-container>
     `,
+    standalone: true,
     animations: [
         trigger('children', [
             state(

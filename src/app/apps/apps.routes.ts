@@ -2,11 +2,6 @@ import { Routes } from '@angular/router';
 
 export default [
     {
-        path: 'my-profile',
-        loadChildren: () => import('../pages/usermanagement/user-data'),
-        data: { breadcrumb: 'Мой профиль' }
-    },
-    {
         path: 'chat',
         loadComponent: () => import('./chat').then((c) => c.Chat),
         data: { breadcrumb: 'Chat' }
