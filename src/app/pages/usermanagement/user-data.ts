@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Select } from 'primeng/select';
 import { InputText } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
@@ -9,13 +7,15 @@ import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { RippleModule } from 'primeng/ripple';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-user-data',
+    selector: 'user-data',
     standalone: true,
     imports: [Select, InputText, TextareaModule, FileUploadModule, InputGroupAddon, ButtonModule, InputGroupModule, RippleModule],
     template: `<div class="card">
-        <span class="text-surface-900 dark:text-surface-0 text-xl font-bold mb-6 block">Создание анкеты</span>
+        <span class="text-surface-900 dark:text-surface-0 text-xl font-bold mb-6 block">Данные профиля</span>
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-12 lg:col-span-2">
                 <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4">Данные профиля</div>
@@ -55,25 +55,25 @@ import { RippleModule } from 'primeng/ripple';
                         <input id="city" type="text" pInputText fluid />
                     </div>
                     <div class="mb-6 col-span-12 md:col-span-6">
-<!--                        <label for="state" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> ИИН </label>-->
-<!--                        <input id="state" type="text" pInputText fluid />-->
+                        <!--                        <label for="state" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> ИИН </label>-->
+                        <!--                        <input id="state" type="text" pInputText fluid />-->
                     </div>
-<!--                    <div class="mb-6 col-span-12">-->
-<!--                        <label for="website" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Website </label>-->
-<!--                        <p-inputgroup>-->
-<!--                            <p-inputgroup-addon>-->
-<!--                                <span>www</span>-->
-<!--                            </p-inputgroup-addon>-->
-<!--                            <input id="website" type="text" pInputText fluid />-->
-<!--                        </p-inputgroup>-->
-<!--                    </div>-->
+                    <!--                    <div class="mb-6 col-span-12">-->
+                    <!--                        <label for="website" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Website </label>-->
+                    <!--                        <p-inputgroup>-->
+                    <!--                            <p-inputgroup-addon>-->
+                    <!--                                <span>www</span>-->
+                    <!--                            </p-inputgroup-addon>-->
+                    <!--                            <input id="website" type="text" pInputText fluid />-->
+                    <!--                        </p-inputgroup>-->
+                    <!--                    </div>-->
                     <div class="flex" style="width: 400%">
                         <div class="col-span-12 mx-5">
                             <button pButton (click)="onSubmit()" pRipple label="Сохранить" class="w-auto mt-3"></button>
                         </div>
-                        <div class="col-span-12" style="width: 90%">
-                            <button pButton (click)="backToLogin()" pRipple label="Вернуться на страницу авторизации" class="w-auto mt-3"></button>
-                        </div>
+<!--                        <div class="col-span-12" style="width: 90%">-->
+<!--                            <button pButton (click)="backToLogin()" pRipple label="Вернуться на страницу авторизации" class="w-auto mt-3"></button>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -83,6 +83,7 @@ import { RippleModule } from 'primeng/ripple';
 export class UserData {
     countries: any[] = [];
     loginForm: FormGroup;
+
     constructor(private fb: FormBuilder, private router: Router,) {
         this.loginForm = this.fb.group({
             email: [''],
@@ -90,7 +91,6 @@ export class UserData {
             remember: [false]
         });
     }
-
 
     ngOnInit() {
         this.countries = [

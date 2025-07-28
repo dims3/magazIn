@@ -29,7 +29,7 @@ import { LazyImageWidget } from '@/pages/landing/components/lazyimagewidget';
                                 >
                                     Cancel
                                 </button>
-                                <button type="submit" class="body-button flex-1">Verify</button>
+                                <button type="submit" (click)="onLogin()" class="body-button flex-1">Verify</button>
                             </div>
                         </form>
                     </div>
@@ -53,5 +53,8 @@ export class Verification {
 
     closeModal() {
         this.router.navigate(['/auth/register']);
+    }
+    onLogin() {
+            this.router.navigate(['/user-create']);
     }
 }

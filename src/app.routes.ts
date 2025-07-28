@@ -6,11 +6,6 @@ import { AuthLayout } from '@/layout/components/app.authlayout';
 
 export const appRoutes: Routes = [
     {
-        path: '',
-        redirectTo: 'auth/login',
-        pathMatch: 'full'
-    },
-    {
         path: 'auth',
         component: AuthLayout,
         children: [
@@ -49,19 +44,54 @@ export const appRoutes: Routes = [
             {
                 path: 'error',
                 loadComponent: () => import('@/pages/notfound/notfound').then((c) => c.Notfound)
-            },
-            {
-                path: 'user-data',
-                loadComponent: () => import('@/pages/user-data/user-data').then((c) => c.UserData)
             }
         ]
     },
     {
-        path: 'dashboard',
+        path: 'landing',
+        component: LandingLayout,
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('@/pages/landing/landingpage').then((c) => c.LandingPage)
+            },
+            {
+                path: 'features',
+                loadComponent: () => import('@/pages/landing/featurespage').then((c) => c.FeaturesPage)
+            },
+            {
+                path: 'pricing',
+                loadComponent: () => import('@/pages/landing/pricingpage').then((c) => c.PricingPage)
+            },
+            {
+                path: 'contact',
+                loadComponent: () => import('@/pages/landing/contactpage').then((c) => c.ContactPage)
+            }
+        ]
+    },
+    // Основные маршруты приложения теперь находятся под корневым путем.
+    // Настоятельно рекомендуется добавить сюда `canActivate` guard для защиты этих маршрутов.
+    {
+        path: '',
         component: AppLayout,
         children: [
             {
                 path: '',
+                redirectTo: 'user-data',
+                pathMatch: 'full'
+            },
+            {
+                path: 'user-create',
+                loadComponent: () => import('@/pages/user-create/user-create').then((c) => c.UserCreate),
+                data: { breadcrumb: 'User Data' }
+            },
+            {
+                path: 'user-data',
+                loadComponent: () => import('@/pages/usermanagement/user-data').then((c) => c.UserData),
+                data: { breadcrumb: 'User Data' }
+            },
+            {
+                path: 'ecommerce',
                 loadComponent: () => import('@/pages/dashboards/ecommerce/ecommercedashboard').then((c) => c.EcommerceDashboard),
                 data: { breadcrumb: 'E-Commerce Dashboard' }
             },
@@ -108,28 +138,6 @@ export const appRoutes: Routes = [
             {
                 path: 'profile',
                 loadChildren: () => import('@/pages/usermanagement/usermanagement.routes')
-            }
-        ]
-    },
-    {
-        path: 'landing',
-        component: LandingLayout,
-        children: [
-            {
-                path: '',
-                loadComponent: () => import('@/pages/landing/landingpage').then((c) => c.LandingPage)
-            },
-            {
-                path: 'features',
-                loadComponent: () => import('@/pages/landing/featurespage').then((c) => c.FeaturesPage)
-            },
-            {
-                path: 'pricing',
-                loadComponent: () => import('@/pages/landing/pricingpage').then((c) => c.PricingPage)
-            },
-            {
-                path: 'contact',
-                loadComponent: () => import('@/pages/landing/contactpage').then((c) => c.ContactPage)
             }
         ]
     },

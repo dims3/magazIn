@@ -8,9 +8,9 @@ import {LayoutService} from '@/layout/service/layout.service';
         <div class="layout-footer">
             <div class="footer-logo-container">
                 <img src="/layout/images/logo-{{ isDarkTheme() ? 'white' : 'dark' }}.svg" alt="diamond-layout"/>
-                <span class="footer-app-name">DIAMOND</span>
+                <span class="footer-app-name">МЕБЕЛЬЩИК</span>
             </div>
-            <span class="footer-copyright">&#169; Your Organization - 2025</span>
+            <span class="footer-copyright">&#169; Мебельщик - 2025</span>
         </div>
     `
 })
