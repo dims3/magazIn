@@ -3,7 +3,6 @@ import { AppLayout } from '@/layout/components/app.layout';
 import { Notfound } from '@/pages/notfound/notfound';
 import { LandingLayout } from '@/layout/components/app.landinglayout';
 import { AuthLayout } from '@/layout/components/app.authlayout';
-import { MyOrders } from '@/pages/my-orders/my-orders';
 
 export const appRoutes: Routes = [
     {
@@ -70,8 +69,6 @@ export const appRoutes: Routes = [
             }
         ]
     },
-    // Основные маршруты приложения теперь находятся под корневым путем.
-    // Настоятельно рекомендуется добавить сюда `canActivate` guard для защиты этих маршрутов.
     {
         path: '',
         component: AppLayout,
