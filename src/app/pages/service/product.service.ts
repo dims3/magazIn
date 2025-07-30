@@ -17,9 +17,18 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
+    orders?: {
+        id: string;
+        customer: string;
+        date: string;
+        amount: number;
+        status: any;
+    }[];
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ProductService {
     getProductsData() {
         return [

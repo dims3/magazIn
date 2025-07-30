@@ -16,11 +16,7 @@ import { Router } from '@angular/router';
     imports: [Select, InputText, TextareaModule, FileUploadModule, InputGroupAddon, ButtonModule, InputGroupModule, RippleModule],
     template: `<div class="card">
         <span class="text-surface-900 dark:text-surface-0 text-xl font-bold mb-6 block">Данные профиля</span>
-        <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12 lg:col-span-2">
-                <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4">Данные профиля</div>
-                <p class="m-0 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4">Заполние все поля.</p>
-            </div>
+        <div class="grid-cols-12 gap-4">
             <div class="col-span-12 lg:col-span-10">
                 <div class="grid grid-cols-12 gap-4">
                     <div class="mb-6 col-span-12">
