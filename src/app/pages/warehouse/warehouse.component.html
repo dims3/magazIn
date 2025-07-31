@@ -1,0 +1,162 @@
+<div class="card">
+    <p-table
+        #dt2
+        [value]="products"
+        dataKey="id"
+        [tableStyle]="{ 'min-width': '60rem' }"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [expandedRowKeys]="expandedRows"
+        (onRowExpand)="onRowExpand($event)"
+        [paginator]="true"
+        (onRowCollapse)="onRowCollapse($event)"
+        [globalFilterFields]="['name', 'orders.description', 'status', 'inventoryStatus', 'category', 'price']">
+        <ng-template #caption>
+            <div class="flex">
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text"
+                           (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                           placeholder="Search keyword" />
+                </p-iconfield>
+                <button pButton type="button"
+                        label="Добавить товар"
+                        icon="pi pi-plus"
+                        class="p-button-success ml-2"
+                        (click)="showAddProductDialog()"></button>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th style="width: 5rem"></th>
+                <th class="w-1/5" pSortableColumn="name">
+                    Наименование<p-sortIcon field="name"/>
+                </th>
+                <th class="w-1/12"></th>
+                <th class="w-1/3" pSortableColumn="price">
+                    Цена закупа<p-sortIcon field="price" />
+                </th>
+                <th class="w-1/3" pSortableColumn="price">
+                    Цена продажи<p-sortIcon field="price" />
+                </th>
+                <th class="w-1/3" pSortableColumn="category">
+                    Категория<p-sortIcon field="category" />
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product let-expanded="expanded">
+            <tr>
+                <td>
+                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true"
+                              [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                </td>
+                <td>{{ product.name }}</td>
+                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                         [alt]="product.name" width="50" class="shadow-lg" /></td>
+                <td>{{ product.price | currency : 'USD' }}</td>
+                <td>{{ product.salePrice | currency : 'USD' }}</td>
+                <td>{{ product.category }}</td>
+                <!--                        <td><p-rating [(ngModel)]="product.rating" [readonly]="true" /></td>-->
+
+            </tr>
+        </ng-template>
+        <ng-template #expandedrow let-product>
+            <tr>
+                <td colspan="7">
+                    <div class="p-4">
+                        <h5> <strong>Заказ</strong> {{ product.name }}</h5>
+                        <p-table styleClass="my-zebra-table" [value]="product.orders" dataKey="id">
+                            <ng-template #header>
+                                <tr>
+                                    <th class="w-1/3" pSortableColumn="description">Описание
+                                        <p-sortIcon field="description" />
+                                    </th>
+                                    <th class="w-1/6" pSortableColumn="customer">Поставщик
+                                        <p-sortIcon field="customer" />
+                                    </th>
+                                    <th class="w-1/6" pSortableColumn="date">Дата поступления
+                                        <p-sortIcon field="date" />
+                                    </th>
+                                    <th class="w-1/6" pSortableColumn="amount">Кол-во в наличии
+                                        <p-sortIcon field="amount" />
+                                    </th>
+                                    <th class="w-1/6" pSortableColumn="size">Размер
+                                        <p-sortIcon field="size" />
+                                    </th>
+                                    <th class="w-1/6" pSortableColumn="status">Статус
+                                        <p-sortIcon field="status" />
+                                    </th>
+                                    <th style="width: 4rem"></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template #body let-order>
+                                <tr>
+                                    <td class="w-1/4">{{ order.description }}</td>
+                                    <td>{{ order.customer }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>{{ order.amount }}</td>
+                                    <td>{{ order.size }}</td>
+                                    <td>
+                                        <p-tag [value]="order.status"
+                                               [severity]="getStatusSeverity(order.status)" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template #emptymessage>
+                                <tr>
+                                    <td colspan="6">Заказаов данной продукции на данный момент нет.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<p-dialog header="Добавить товар"
+          [(visible)]="addProductDialog"
+          [modal]="true"
+          [style]="{ width: '40vw' }"
+          [closable]="true"
+          [dismissableMask]="true">
+    <form [formGroup]="addProductForm">
+        <div class="field">
+            <label for="name">Наименование</label>
+            <input id="name" pInputText formControlName="name" />
+        </div>
+        <div class="field">
+            <label for="description">Описание</label>
+            <textarea id="description" pInputTextarea formControlName="description"></textarea>
+        </div>
+        <div class="field">
+            <label for="size">Размер</label>
+            <input id="size" pInputText formControlName="size" />
+        </div>
+        <div class="field">
+            <label for="price">Цена</label>
+            <input id="price" type="number" pInputText formControlName="price" />
+        </div>
+        <div class="field">
+            <label for="price">Категория</label>
+            <input id="category" type="text" pInputText formControlName="category" />
+        </div>
+        <div class="field">
+            <label>Фото</label>
+            <p-fileupload mode="basic"
+                          name="image"
+                          customUpload="true"
+                          (uploadHandler)="onFileUpload($event)"
+                          accept="image/*"
+                          chooseLabel="Выбрать изображение"
+                          [auto]="true" />
+        </div>
+
+        <div class="flex justify-end mt-3">
+            <button pButton type="button" label="Сохранить" (click)="saveProduct()" class="p-button-primary"></button>
+        </div>
+    </form>
+</p-dialog>

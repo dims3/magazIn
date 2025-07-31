@@ -3,14 +3,12 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { Router, RouterLink } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
-import { AppleWidget } from '@/pages/auth/components/applewidget';
-import { GoogleWidget } from '@/pages/auth/components/googlewidget';
 import { LogoWidget } from '@/pages/landing/components/logowidget';
 
 @Component({
     selector: 'app-register',
     standalone: true,
-    imports: [LogoWidget, GoogleWidget, AppleWidget, FormsModule, ReactiveFormsModule, InputTextModule, CheckboxModule, RouterLink],
+    imports: [LogoWidget, FormsModule, ReactiveFormsModule, InputTextModule, CheckboxModule, RouterLink],
     template: `
         <section class="min-h-screen flex items-center lg:items-start lg:py-20 justify-center animate-fadein animate-duration-300 animate-ease-in max-w-[100rem] mx-auto">
             <div class="flex w-full h-full justify-center gap-12">

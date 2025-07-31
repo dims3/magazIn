@@ -5,15 +5,13 @@ import { RouterLink } from '@angular/router';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { AppleWidget } from '@/pages/auth/components/applewidget';
-import { GoogleWidget } from '@/pages/auth/components/googlewidget';
 import { LazyImageWidget } from '@/pages/landing/components/lazyimagewidget';
 import { LogoWidget } from '@/pages/landing/components/logowidget';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [LogoWidget, CommonModule, ReactiveFormsModule, InputTextModule, LazyImageWidget, GoogleWidget, AppleWidget, CheckboxModule, RouterLink],
+    imports: [LogoWidget, CommonModule, ReactiveFormsModule, InputTextModule, LazyImageWidget, CheckboxModule, RouterLink],
     template: `
         <section class="min-h-screen flex items-center lg:items-start lg:py-20 justify-center animate-fadein animate-duration-300 animate-ease-in max-w-[100rem] mx-auto">
             <div class="flex w-full h-full justify-center gap-12">

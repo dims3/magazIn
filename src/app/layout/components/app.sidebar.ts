@@ -9,7 +9,8 @@ import {CommonModule} from "@angular/common";
     selector: '[app-sidebar]',
     standalone: true,
     imports: [CommonModule,AppMenu, RouterModule, AppTopbar],
-    template: `<div class="layout-sidebar" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    template: `
+        <div class="layout-sidebar" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
         <div class="sidebar-header">
             <a class="logo" [routerLink]="['/']">
                 <img class="logo-image" [src]="menuTheme() === 'light' ? '/layout/images/logo-dark.svg' : '/layout/images/logo-white.svg'" alt="diamond-layout" />

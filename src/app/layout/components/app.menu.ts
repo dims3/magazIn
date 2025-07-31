@@ -32,8 +32,13 @@ export class AppMenu {
                 },
                 {
                     label: 'Мои заказы',
-                    icon: 'pi pi-fw pi-box',
+                    icon: 'pi pi-fw pi-file',
                     routerLink: ['/my-orders']
+                },
+                {
+                    label: 'Склад',
+                    icon: 'pi pi-fw pi-box',
+                    routerLink: ['/warehouse']
                 },
             ]
         },

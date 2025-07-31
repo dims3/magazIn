@@ -19,7 +19,7 @@ import { AppRightMenu } from '@/layout/components/app.rightmenu';
         <div app-sidebar></div>
         <div class="layout-content-wrapper">
             <div class="layout-content-wrapper-inside">
-                <div app-topbar></div>
+<!--                <div app-topbar></div>-->
                 <div class="layout-content">
                     <div app-breadcrumb></div>
                     <router-outlet></router-outlet>

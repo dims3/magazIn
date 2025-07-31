@@ -3,17 +3,16 @@ import { Select } from 'primeng/select';
 import { InputText } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { FileUploadModule } from 'primeng/fileupload';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { RippleModule } from 'primeng/ripple';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'user-data',
     standalone: true,
-    imports: [Select, InputText, TextareaModule, FileUploadModule, InputGroupAddon, ButtonModule, InputGroupModule, RippleModule],
+    imports: [Select, InputText, TextareaModule, FileUploadModule, ButtonModule, InputGroupModule, RippleModule, ReactiveFormsModule, FormsModule],
     template: `<div class="card">
         <span class="text-surface-900 dark:text-surface-0 text-xl font-bold mb-6 block">Данные профиля</span>
         <div class="grid-cols-12 gap-4">
@@ -21,26 +20,25 @@ import { Router } from '@angular/router';
                 <div class="grid grid-cols-12 gap-4">
                     <div class="mb-6 col-span-12">
                         <label for="nickname" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Ф.И.О </label>
-                        <input id="nickname" type="text" pInputText fluid />
+                        <input id="nickname" [value]="userName" type="text" pInputText fluid />
                     </div>
                     <div class="mb-6 col-span-12 flex flex-col items-start">
                         <label for="avatar" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">Аватар</label>
-                        <p-fileupload mode="basic" name="avatar" url="./upload.php" accept="image/*" [maxFileSize]="1000000" styleClass="p-button-outlined p-button-plain" chooseLabel="Загрузить фото"></p-fileupload>
+                        <p-fileupload mode="basic" (uploadHandler)="onFileSelect($event)" name="avatar" url="./upload.php" accept="image/*" [maxFileSize]="1000000" styleClass="p-button-outlined p-button-plain" chooseLabel="Загрузить фото"></p-fileupload>
                     </div>
                     <div class="mb-6 col-span-12">
                         <label for="bio" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Наименование компании </label>
-                        <input pTextarea id="bio" type="text" rows="5" [autoResize]="true" fluid />
+                        <input pTextarea id="bio" [value]="company" type="text" rows="5" [autoResize]="true" fluid />
                     </div>
                     <div class="mb-6 col-span-12 md:col-span-6">
                         <label for="email" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Email </label>
-                        <input id="email" type="text" pInputText fluid />
+                        <input id="email" [value]="email" type="text" pInputText fluid />
                     </div>
                     <div class="mb-6 col-span-12 md:col-span-6">
                         <label for="country" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Город </label>
-                        <p-select inputId="country" [options]="countries" optionLabel="name" fluid [filter]="true" filterBy="name" [showClear]="true" placeholder="Выберете город">
+                        <p-select inputId="city" [(ngModel)]="selectedCity" [options]="citys" optionLabel="name" fluid [filter]="true" filterBy="name" [showClear]="true" placeholder="Выберете город">
                             <ng-template let-country #item>
                                 <div class="flex items-center">
-                                    <img src="https://primefaces.org/cdn/v2/images/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + country.code.toLowerCase()" style="width:18px" />
                                     <div>{{ country.name }}</div>
                                 </div>
                             </ng-template>
@@ -77,37 +75,55 @@ import { Router } from '@angular/router';
     </div> `
 })
 export class UserData {
-    countries: any[] = [];
+    citys: any[] = [];
     loginForm: FormGroup;
-
+    userName: string = 'Иванов Иван Иванович';
+    company: string = 'ТОО Да'
+    email: string = 'dims3@mail.ru'
+    selectedCity: any;
+    avatar: string = 'assets/images/avatar.jpg';
     constructor(private fb: FormBuilder, private router: Router,) {
         this.loginForm = this.fb.group({
             email: [''],
             password: [''],
-            remember: [false]
+            remember: [false],
+            userName: ['']
         });
     }
 
     ngOnInit() {
-        this.countries = [
-            { name: 'Australia', code: 'AU' },
-            { name: 'Brazil', code: 'BR' },
-            { name: 'China', code: 'CN' },
-            { name: 'Egypt', code: 'EG' },
-            { name: 'France', code: 'FR' },
-            { name: 'Germany', code: 'DE' },
-            { name: 'India', code: 'IN' },
-            { name: 'Japan', code: 'JP' },
-            { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' }
+        this.citys = [
+            { name: 'Астана', code: '1' },
+            { name: 'Алмата', code: '2' },
+            { name: 'Шимкент', code: '3' },
+            { name: 'Петропавловск', code: '4' },
+            { name: 'Костанай', code: '5' },
+            { name: 'Усть Каменогорск', code: '6' },
+            { name: 'Щучинск', code: '7' },
+            { name: 'Караганда', code: '8' },
+            { name: 'Уральск', code: '9' },
+            { name: 'Кокшетау', code: '10' }
         ];
+        this.selectedCity = this.citys.find(c => c.code === '5');
+
     }
     onSubmit() {
         if (this.loginForm.valid) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/my-orders']);
         }
     }
-    backToLogin() {
-        this.router.navigate(['/auth/login'])
+
+    onFileSelect(event: any) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            this.avatar = reader.result as string;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file); // загружаем как base64
+        }
     }
+
 }

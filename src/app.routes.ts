@@ -3,6 +3,7 @@ import { AppLayout } from '@/layout/components/app.layout';
 import { Notfound } from '@/pages/notfound/notfound';
 import { LandingLayout } from '@/layout/components/app.landinglayout';
 import { AuthLayout } from '@/layout/components/app.authlayout';
+import { Warehouse } from '@/pages/warehouse/warehouse';
 
 export const appRoutes: Routes = [
     {
@@ -92,6 +93,11 @@ export const appRoutes: Routes = [
                 path: 'user-data',
                 loadComponent: () => import('@/pages/usermanagement/user-data').then((c) => c.UserData),
                 data: { breadcrumb: 'User Data' }
+            },
+            {
+                path: 'warehouse',
+                loadComponent: () => import('@/pages/warehouse/warehouse').then((c) => c.Warehouse),
+                data: { breadcrumb: 'warehouse' }
             },
             {
                 path: 'ecommerce',

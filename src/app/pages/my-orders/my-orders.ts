@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Select } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
@@ -21,7 +20,6 @@ import { InputText } from 'primeng/inputtext';
     selector: 'app-my-orders',
     standalone: true,
     imports: [
-        Select,
         TextareaModule,
         FileUploadModule,
         CommonModule,
@@ -50,7 +48,7 @@ import { InputText } from 'primeng/inputtext';
                 (onRowExpand)="onRowExpand($event)"
                 [paginator]="true"
                 (onRowCollapse)="onRowCollapse($event)"
-                [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+                [globalFilterFields]="['name', 'orders.description', 'status', 'inventoryStatus', 'category', 'price']">
                 <ng-template #caption>
                     <div>
                         <p-iconfield iconPosition="right" class="ml-auto">
@@ -165,7 +163,7 @@ export class MyOrders {
             name: 'Кухонный гарнитур Лофт',
             image: 'bamboo-watch.jpg',
             price: 65,
-            category: 'Accessories',
+            category: 'Мебель',
             rating: 4,
             inventoryStatus: 'В НАЛИЧИИ',
             orders: [
@@ -192,7 +190,7 @@ export class MyOrders {
             name: 'Шкаф-купе в спальню',
             image: 'black-watch.jpg',
             price: 72,
-            category: 'Accessories',
+            category: 'Мебель',
             rating: 5,
             inventoryStatus: 'МАЛО',
             orders: [
@@ -211,7 +209,7 @@ export class MyOrders {
             name: 'Рабочий стол для кабинета',
             image: 'blue-t-shirt.jpg',
             price: 25,
-            category: 'Clothing',
+            category: 'Мебель',
             rating: 3,
             inventoryStatus: 'НЕТ В НАЛИЧИИ',
             orders: [{
@@ -227,7 +225,7 @@ export class MyOrders {
             name: 'Книжный стеллаж',
             image: 'black-watch.jpg',
             price: 72,
-            category: 'Accessories',
+            category: 'Мебель',
             rating: 5,
             inventoryStatus: 'МАЛО',
             orders: [
@@ -246,7 +244,7 @@ export class MyOrders {
             name: 'Тумба под ТВ',
             image: 'blue-t-shirt.jpg',
             price: 25,
-            category: 'Clothing',
+            category: 'Мебель',
             rating: 3,
             inventoryStatus: 'НЕТ В НАЛИЧИИ',
             orders: [{
