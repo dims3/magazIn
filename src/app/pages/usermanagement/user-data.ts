@@ -6,93 +6,53 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { RippleModule } from 'primeng/ripple';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgForOf } from '@angular/common';
+import { RadioButton } from 'primeng/radiobutton';
 
 @Component({
     selector: 'user-data',
+    templateUrl: './user-data.component.html',
     standalone: true,
-    imports: [Select, InputText, TextareaModule, FileUploadModule, ButtonModule, InputGroupModule, RippleModule, ReactiveFormsModule, FormsModule],
-    template: `<div class="card">
-        <span class="text-surface-900 dark:text-surface-0 text-xl font-bold mb-6 block">Данные профиля</span>
-        <div class="grid-cols-12 gap-4">
-            <div class="col-span-12 lg:col-span-10">
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="mb-6 col-span-12">
-                        <label for="nickname" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Ф.И.О </label>
-                        <input id="nickname" [value]="userName" type="text" pInputText fluid />
-                    </div>
-                    <div class="mb-6 col-span-12 flex flex-col items-start">
-                        <label for="avatar" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">Аватар</label>
-                        <p-fileupload mode="basic" (uploadHandler)="onFileSelect($event)" name="avatar" url="./upload.php" accept="image/*" [maxFileSize]="1000000" styleClass="p-button-outlined p-button-plain" chooseLabel="Загрузить фото"></p-fileupload>
-                    </div>
-                    <div class="mb-6 col-span-12">
-                        <label for="bio" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Наименование компании </label>
-                        <input pTextarea id="bio" [value]="company" type="text" rows="5" [autoResize]="true" fluid />
-                    </div>
-                    <div class="mb-6 col-span-12 md:col-span-6">
-                        <label for="email" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Email </label>
-                        <input id="email" [value]="email" type="text" pInputText fluid />
-                    </div>
-                    <div class="mb-6 col-span-12 md:col-span-6">
-                        <label for="country" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Город </label>
-                        <p-select inputId="city" [(ngModel)]="selectedCity" [options]="citys" optionLabel="name" fluid [filter]="true" filterBy="name" [showClear]="true" placeholder="Выберете город">
-                            <ng-template let-country #item>
-                                <div class="flex items-center">
-                                    <div>{{ country.name }}</div>
-                                </div>
-                            </ng-template>
-                        </p-select>
-                    </div>
-                    <div class="mb-6 col-span-12 md:col-span-6">
-                        <label for="city" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> БИН </label>
-                        <input id="city" type="text" pInputText fluid />
-                    </div>
-                    <div class="mb-6 col-span-12 md:col-span-6">
-                        <!--                        <label for="state" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> ИИН </label>-->
-                        <!--                        <input id="state" type="text" pInputText fluid />-->
-                    </div>
-                    <!--                    <div class="mb-6 col-span-12">-->
-                    <!--                        <label for="website" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block"> Website </label>-->
-                    <!--                        <p-inputgroup>-->
-                    <!--                            <p-inputgroup-addon>-->
-                    <!--                                <span>www</span>-->
-                    <!--                            </p-inputgroup-addon>-->
-                    <!--                            <input id="website" type="text" pInputText fluid />-->
-                    <!--                        </p-inputgroup>-->
-                    <!--                    </div>-->
-                    <div class="flex" style="width: 400%">
-                        <div class="col-span-12 mx-5">
-                            <button pButton (click)="onSubmit()" pRipple label="Сохранить" class="w-auto mt-3"></button>
-                        </div>
-<!--                        <div class="col-span-12" style="width: 90%">-->
-<!--                            <button pButton (click)="backToLogin()" pRipple label="Вернуться на страницу авторизации" class="w-auto mt-3"></button>-->
-<!--                        </div>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> `
+    imports: [Select, InputText, TextareaModule, FileUploadModule, ButtonModule, InputGroupModule, RippleModule, ReactiveFormsModule, FormsModule, NgForOf, RadioButton]
 })
 export class UserData {
-    citys: any[] = [];
-    loginForm: FormGroup;
+    city: any[] = [];
     userName: string = 'Иванов Иван Иванович';
     company: string = 'ТОО Да'
+    activityTypes: any[] = [];
+    officeAddress: string =  'ул. Толе би, 101';
+    factoryAddress: string =  'пр. Абая, 45';
+    phone: string =  '+7 (777) 123-45-67';
+    bin: string = '123456789012';
     email: string = 'dims3@mail.ru'
+    form: FormGroup;
     selectedCity: any;
     avatar: string = 'assets/images/avatar.jpg';
     constructor(private fb: FormBuilder, private router: Router,) {
-        this.loginForm = this.fb.group({
+        this.form = this.fb.group({
             email: [''],
-            password: [''],
-            remember: [false],
-            userName: ['']
+            userName: [''],
+            company: [''],
+            avatar: [''],
+            ingredient: [0, Validators.required],
+            city: [],
+            officeAddress: [''],
+            factoryAddress: [''],
+            phone: [''],
+            bin: ['']
         });
     }
 
     ngOnInit() {
-        this.citys = [
+        this.activityTypes = [
+            { label: 'ИП', value: 1 },
+            { label: 'ТОО', value: 2 },
+            { label: 'АО', value: 3 },
+            { label: 'Другое', value: 4 }
+        ];
+        this.city = [
             { name: 'Астана', code: '1' },
             { name: 'Алмата', code: '2' },
             { name: 'Шимкент', code: '3' },
@@ -104,13 +64,38 @@ export class UserData {
             { name: 'Уральск', code: '9' },
             { name: 'Кокшетау', code: '10' }
         ];
-        this.selectedCity = this.citys.find(c => c.code === '5');
+        const userDataFromBackend = {
+            email: 'dims3@mail.ru',
+            userName: 'Иванов Иван Иванович',
+            company: 'ТОО Да',
+            avatar: 'assets/images/avatar.jpg',
+            ingredient: 1,
+            city: this.city.find(c => c.code === '5'), // Костанай
+            officeAddress: 'ул. Толе би, 101',
+            factoryAddress: 'пр. Абая, 45',
+            phone: '+7 (777) 123-45-67',
+            bin: '123456789012'
+        };
 
+        this.selectedCity = userDataFromBackend.city;
+
+        this.form.patchValue({
+            email: userDataFromBackend.email,
+            userName: userDataFromBackend.userName,
+            company: userDataFromBackend.company,
+            avatar: userDataFromBackend.avatar,
+            ingredient: userDataFromBackend.ingredient,
+            city: userDataFromBackend.city,
+            bin: userDataFromBackend.bin,
+            officeAddress: userDataFromBackend.officeAddress,
+            factoryAddress: userDataFromBackend.factoryAddress,
+            phone: userDataFromBackend.phone,
+        });
+
+        this.avatar = userDataFromBackend.avatar;
     }
     onSubmit() {
-        if (this.loginForm.valid) {
             this.router.navigate(['/my-orders']);
-        }
     }
 
     onFileSelect(event: any) {

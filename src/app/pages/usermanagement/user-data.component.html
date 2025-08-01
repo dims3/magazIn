@@ -1,0 +1,91 @@
+<div class="card">
+    <form [formGroup]="form">
+        <span class="text-surface-900 dark:text-surface-0 text-xl font-bold mb-6 block">Данные профиля</span>
+        <div class="grid-cols-12 mt-5 gap-4">
+            <div class="col-span-12 mt-5 lg:col-span-10">
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="mb-6 col-span-12">
+                        <label class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Форма деятельности
+                        </label>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center" *ngFor="let type of activityTypes">
+                                <p-radiobutton
+                                    [inputId]="'ingredient-' + type.value"
+                                    name="ingredient"
+                                    [value]="type.value"
+                                    formControlName="ingredient">
+                                </p-radiobutton>
+                                <label [for]="'ingredient-' + type.value" class="ml-2">{{ type.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6 col-span-12">
+                        <label for="nickname" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Ф.И.О </label>
+                        <input id="nickname" formControlName="userName" type="text" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 flex flex-col items-start">
+                        <label class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">Аватар</label>
+                        <p-fileupload mode="basic" name="avatar" url="./upload.php" accept="image/*"
+                                      [maxFileSize]="1000000" styleClass="p-button-outlined p-button-plain"
+                                      chooseLabel="Загрузить фото"></p-fileupload>
+                    </div>
+                    <div class="mb-6 col-span-12">
+                        <label for="bio" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Наименование компании </label>
+                        <input formControlName="company" pTextarea id="bio" type="text" rows="5" [autoResize]="true" fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label for="email" class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Email </label>
+                        <input id="email" formControlName="email" type="text" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Город </label>
+                        <p-select inputId="country" [options]="city" optionLabel="name" fluid [filter]="true"
+                                  filterBy="name" formControlName="city" [showClear]="true" placeholder="Выберете город">
+                            <ng-template let-country #item>
+                                <div class="flex items-center">
+                                    <img src="https://primefaces.org/cdn/v2/images/flag/flag_placeholder.png"
+                                         [class]="'mr-2 flag flag-' + country.code.toLowerCase()"
+                                         style="width:18px" />
+                                    <div>{{ country.name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-select>
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Адрес офиса</label>
+                        <input type="text" formControlName="officeAddress" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Адрес цеха/производства </label>
+                        <input type="text" formControlName="factoryAddress" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            Контактный телефон</label>
+                        <input formControlName="phone" type="text" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                        <label class="font-medium text-surface-900 dark:text-surface-0 mb-2 block">
+                            БИН </label>
+                        <input type="text" formControlName="bin" pInputText fluid />
+                    </div>
+                    <div class="mb-6 col-span-12 md:col-span-6">
+                    </div>
+                </div>
+                <div class="flex text-left" style="width: 450%">
+                    <div class="col-span-12 mx-5">
+                        <button pButton (click)="onSubmit()" severity="success" pRipple label="Сохранить"
+                                class="w-auto mt-3"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
