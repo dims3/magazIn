@@ -50,7 +50,7 @@ export class UserData {
             { label: 'ИП', value: 1 },
             { label: 'ТОО', value: 2 },
             { label: 'АО', value: 3 },
-            { label: 'Другое', value: 4 }
+            { label: 'Физ.лицо', value: 4 }
         ];
         this.city = [
             { name: 'Астана', code: '1' },
@@ -70,7 +70,7 @@ export class UserData {
             company: 'ТОО Да',
             avatar: 'assets/images/avatar.jpg',
             ingredient: 1,
-            city: this.city.find(c => c.code === '5'), // Костанай
+            city: this.city.find(c => c.code === '5'),
             officeAddress: 'ул. Толе би, 101',
             factoryAddress: 'пр. Абая, 45',
             phone: '+7 (777) 123-45-67',
@@ -107,7 +107,7 @@ export class UserData {
         };
 
         if (file) {
-            reader.readAsDataURL(file); // загружаем как base64
+            reader.readAsDataURL(file);
         }
     }
 
